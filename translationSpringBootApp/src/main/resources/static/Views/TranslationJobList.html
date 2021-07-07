@@ -1,0 +1,67 @@
+<div ng-init="populate()" style="margin-bottom: 40px !important;">
+    <div style="height: 70px !important;">
+        <div class="alert alert-danger" data-ng-show="error && error !== ''"><strong>Failure!</strong>&nbsp;{{error}}</div>
+        <div class="alert alert-success" data-ng-show="loadingMessage && loadingMessage !== ''"><strong>Success!</strong>&nbsp;{{loadingMessage}}</div>
+    </div>
+    <div class="panel">
+    <!-- 
+        <div class="input-group" style="margin-bottom: 20px !important;">
+            <input ng-model="newTodoCaption" class="form-control"/>
+            <span class="input-group-btn">
+                <button ng-click="add()" class="btn btn-primary">Add</button>
+            </span>
+        </div>
+     -->
+        <ul class="list-group" id="translationJoblist">
+            <div class="list-group-item list-group-item-action flex-column align-items-start" data-ng-repeat="item in translationJobList">
+                <div data-ng-hide="item.edit">
+                <!-- 
+                    <button type="button" class="btn btn-success float-right btn-sm" ng-disabled="item.finished" data-ng-click="editSwitch(item)">Edit</button>
+                    <button type="button" class="btn btn-danger float-right btn-sm" data-ng-click="delete(item.id)">Delete</button>
+                    <input type="checkbox" data-ng-model="item.finished" data-ng-change="finishSwitch(item)"/>
+                 -->
+                 <table>
+                 <tr>
+                 	<td><b>Job Id:</b> {{item.jobId}}</td>
+                 	<td><b>Create Date:</b> {{item.createDate}}</td>
+                 </tr>
+                 <tr>
+                 	<td><b>Request Id:</b> {{item.requestId}}</td>
+                 	<td><b>Job Status:</b> {{item.jobStatus}}</td>
+                 </tr>
+                 <tr>
+                 	<td><b>Source: {{item.translatedFrom}}</b></td>
+                 	<td>
+	                    <span data-ng-hide="item.finished"><a href={{item.sourceUrl}}>{{item.sourceFilePath}}</a></span>
+                 	</td>
+                 </tr>
+                 <tr>
+                 	<td><b>Translation: {{item.translatedTo}}</b></td>
+                 	<td>
+                    <span data-ng-hide="item.finished"><a href={{item.targetUrl}}>{{item.targetFilePath}}</a></span>
+                 	</td>
+                 </tr>
+                 <tr>
+                  	<td><b>Status:</b> {{item.translationStatus}}</td>
+                 	<td><b>Progress:</b> {{item.translationProgress}}</td>
+                 </tr>
+				 <tr>
+				 	<td><b>Started At:</b> {{item.translationStartedAtUTC}}</td>
+				 	<td><b>Last Action At:</b> {{item.translationLastActionDateUTC}}</td>
+				 </tr>
+				 <tr>
+				 	<td><b>Character Charged: </b> {{item.characterCharged}}</td>
+				 </tr>
+                 </table>
+                </div>
+                <div data-ng-show="item.edit" class="input-group">
+                    <input class="form-control" data-ng-model="editInProgressTodo.description" />
+                    <span class="input-group-btn">
+                        <button type="button" data-ng-click="update(item)" class="btn btn-primary float-right btn-sm">Save</button>
+                        <button type="button" data-ng-click="editSwitch(item)"  class="btn btn-secondary float-right btn-sm">Cancel</button>
+                    </span>
+                </div>
+            </div>
+        </ul>
+    </div>
+</div>
