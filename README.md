@@ -10,22 +10,27 @@ Create an Azure Cosmos DB SQL API database and a container inside it.
 Create an Azure Spring Boot Web App in App Service
 Create an Azure Cognitive Document Translation API Service instance
 
-The code for the two Azure Functions are in the translationFunctions folder. If you want to run it locally (from say VSCode), you have to create your own local.settings.json file in the function-app folder so it can connect with the Blbo Store and the Azure Cognitive Translator Service. Below is a sample local.settings.json.
+The code for the two Azure Functions are in the [translationFunctions][translationFunctionsFolder] folder. If you want to run it locally (from say VSCode), you have to create your own local.settings.json file in the [translationFunctions][translationFunctionsFolder] folder so it can connect with the Blbo Store and the Azure Cognitive Translation API Service. Below is a sample local.settings.json.
 ```
 {
   "IsEncrypted": false,
   "Values": {
-    "AzureWebJobsStorage": "DefaultEndpointsProtocol=https;AccountName=tbdemostoragev2;AccountKey=xxxxxxxxxx==;EndpointSuffix=core.windows.net",
+    "AzureWebJobsStorage": "DefaultEndpointsProtocol=https;AccountName=trtransdemo;AccountKey=XXXXX==;EndpointSuffix=core.windows.net",
     "FUNCTIONS_WORKER_RUNTIME": "python",
-    "tbdemostoragev2_STORAGE": "DefaultEndpointsProtocol=https;AccountName=tbdemostoragev2;AccountKey=xxxxxxxxxx==;EndpointSuffix=core.windows.net",
-    "DOCS_CONTAINER_HOST": "https://tbdemostoragev2.blob.core.windows.net/",
-    "DOCS_CONTAINER_SOURCE_KEY": "?sp=rl&st=2021-05-31T01:02:12Z&se=2041-06-01T09:02:12Z&spr=https&sv=2020-02-10&sr=c&sig=xxxxxxx%2FM5Q%3D",
-    "DOCS_TARGET_CONTAINER_NAME": "tr-translator-target-docs",
-    "DOCS_CONTAINER_TARGET_KEY": "?sp=rwl&st=2021-05-31T01:13:36Z&se=2041-06-01T09:13:36Z&spr=https&sv=2020-02-10&sr=c&sig=xxxxxxxx%3D",
+    "theTriggeringBlob_STORAGE": "DefaultEndpointsProtocol=https;AccountName=trtransdemo;AccountKey=XXXXXX==;EndpointSuffix=core.windows.net",
+    "DOCS_CONTAINER_HOST": "https://trtransdemo.blob.core.windows.net/",
+    "DOCS_CONTAINER_SOURCE_KEY": "?sp=racwdl&st=2021-06-13T03:05:57Z&se=2021-12-13T12:05:57Z&spr=https&sv=2020-02-10&sr=c&sig=xxxxxxxx",
+    "DOCS_TARGET_CONTAINER_NAME": "translation-target",
+    "TRANSLATE_TO": "es",
+    "DOCS_CONTAINER_TARGET_KEY": "?sp=racwdl&st=2021-06-13T03:12:50Z&se=2021-12-13T12:12:50Z&spr=https&sv=2020-02-10&sr=c&sig=xxxxxxx",
     "TRANSLATOR_DOCS_ENDPOINT": "https://trtranslator.cognitiveservices.azure.com/translator/text/batch/v1.0",
-    "TRANSLATOR_DOCS_SUBSCRIPTION_KEY": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-    "GLOSSARY_CONTAINER_KEY": "?sp=racwdl&st=2021-06-07T13:54:12Z&se=2022-06-07T21:54:12Z&spr=https&sv=2020-02-10&sr=c&sig=xxxxxxxxxxxx%3D",
-    "GLOSSARY_URI": "https://tbdemostoragev2.blob.core.windows.net/tr-translator-glossary-files"
+    "TRANSLATOR_DOCS_SUBSCRIPTION_KEY": "00000000000000",
+    "GLOSSARY_CONTAINER_KEY": "?sp=racwdl&st=2021-06-13T03:16:44Z&se=2021-12-13T12:16:44Z&spr=https&sv=2020-02-10&sr=c&sig=xxxxxxxxxxxxxx",
+    "GLOSSARY_URI": "https://trtransdemo.blob.core.windows.net/translation-glossary",
+    "theCosmosDB_DOCUMENTDB": "AccountEndpoint=https://trtransdemo.documents.azure.com:443/;AccountKey=xxxxxxxxx==;",
+    "cosmosDatabaseName": "DocumentTranslationDB",
+    "cosmosCollectionName": "TranslationJob"
+
   }
 }
 ```
@@ -57,3 +62,4 @@ Example:
 ```
 python TranslateText.py -f en -t de -q "My name is TR"
 ```
+[translationFunctionsFolder]: <https://github.com/tirtho/CognitiveDocumentTranslationApp/blob/main/translationFunctions>
