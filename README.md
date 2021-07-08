@@ -18,6 +18,8 @@ The source files in the Blob Store are in a subfolder. For example, the files co
 
 The translated files are placed in a subfolder <src language>-<target language> folder. For example if you are translating a file named MyDocs.pdf from English to Spanish, the translated file will be placed in <target container name>/en-es/MyDocs.pdf. The target subfolder en-es must exist beforehand.
  
+The code uses the auto language detect feature of Azure Cognitive Document Translation APIs to automatically detect the language of the source document. In this case, for the above example, the source language will be 'auto'.
+ 
 ### The Function App Setting
 The code for the two Azure Functions are in the [translationFunctions][translationFunctionsFolder] folder. If you want to run it locally (from say VSCode), you have to create your own local.settings.json file in the [translationFunctions][translationFunctionsFolder] folder so it can connect with the Blob Store, the Azure Cognitive Translation API Service and Cosmos DB. Below is a sample local.settings.json.
 ```
