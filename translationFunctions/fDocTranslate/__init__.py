@@ -29,7 +29,7 @@ def main(myblob: func.InputStream, mydoc: func.Out[func.Document]):
 
     toLanguage = os.environ['TRANSLATE_TO']
     # TODO: Find out from language using a Congnitive Services call
-    fromLanguage = 'en'
+    fromLanguage = 'auto'
 
     srcFile = str(blobStoreName) + str(inputFilename) + str(sourceKey)
 
