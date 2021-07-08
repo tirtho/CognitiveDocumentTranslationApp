@@ -1,5 +1,6 @@
 # The Architecture
 The architecture below shows what you can execute with the code here. Upon setup, you can load your files to translate into the Input container of the Blob Storage, which will automatically trigger an Azure Function, fDocTranslate, to call the Azure Cognitive Document Translation APIs to translate the new document(s) and create an item entry for this job in the Azure Cosmos DB instance. The Cognitive Document Translation API will store the translated document(s) in the Output container. And storing this new translated document in Output container will trigger the other Azure Function, fDocTranslateStatus, which will then update the item in Cosmos DB with translation completion and other status information. The Azure Web App (written using Spring Boot) gets the list of items from the Cosmos DB instance and displays in the UI.
+You can translate documents from any language to any language (supported by Azure Cognitive Document Translation API Service - [see list][SupportedLanguages]). Documents should in [supported formats][SupportedFormat]
 
 ![Architecture URL](/images/architecture.jpg)
 
@@ -71,5 +72,7 @@ Example:
 python TranslateText.py -f en -t de -q "My name is TR"
 ```
 [translationFunctionsFolder]: <https://github.com/tirtho/CognitiveDocumentTranslationApp/blob/main/translationFunctions>
-[funcAppImage]: <https://github.com/tirtho/CognitiveDocumentTranslationApp/blob/main/FuncApp.jpg>
-[AppSettingImage]: <https://github.com/tirtho/CognitiveDocumentTranslationApp/blob/main/AppSetting.jpg>
+[funcAppImage]: <https://github.com/tirtho/CognitiveDocumentTranslationApp/blob/main/images/FuncApp.jpg>
+[AppSettingImage]: <https://github.com/tirtho/CognitiveDocumentTranslationApp/blob/main/images/AppSetting.jpg>
+[SupportedLanguages]: <https://docs.microsoft.com/en-us/azure/cognitive-services/translator/language-support>
+[SupportedFormat]: <https://docs.microsoft.com/en-us/azure/cognitive-services/translator/document-translation/overview#supported-document-formats>
