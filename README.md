@@ -4,13 +4,14 @@ The architecture below shows what you can execute with the code here. Upon setup
 ![Architecture URL](/images/architecture.jpg)
 
 # The Setup
-Create an Azure Blob Store with 3 containers for input, output and glossary.
-Create an Azure Function App
-Create an Azure Cosmos DB SQL API database and a container inside it.
-Create an Azure Spring Boot Web App in App Service
-Create an Azure Cognitive Document Translation API Service instance
+1. Create an Azure Blob Store with 3 containers for input, output and glossary.
+2. Create an Azure Function App
+3. Create an Azure Cosmos DB SQL API database and a container inside it.
+4. Create an Azure Spring Boot Web App in App Service
+5. Create an Azure Cognitive Document Translation API Service instance
 
-The code for the two Azure Functions are in the [translationFunctions][translationFunctionsFolder] folder. If you want to run it locally (from say VSCode), you have to create your own local.settings.json file in the [translationFunctions][translationFunctionsFolder] folder so it can connect with the Blbo Store and the Azure Cognitive Translation API Service. Below is a sample local.settings.json.
+### The Function App Setting
+The code for the two Azure Functions are in the [translationFunctions][translationFunctionsFolder] folder. If you want to run it locally (from say VSCode), you have to create your own local.settings.json file in the [translationFunctions][translationFunctionsFolder] folder so it can connect with the Blob Store, the Azure Cognitive Translation API Service and Cosmos DB. Below is a sample local.settings.json.
 ```
 {
   "IsEncrypted": false,
@@ -34,7 +35,14 @@ The code for the two Azure Functions are in the [translationFunctions][translati
   }
 }
 ```
-And when you run the function in Azure, you need to have the above variables set in App Setting for the Function App.
+And when you run the function in Azure, you need to have the above variables set in App Setting for the Function App, as in the Portal screen below -
+![FuncApp][FuncAppImage]
+
+### The Spring Boot App Service Setting
+
+The Web App reads data from Cosmos DB to render in the UI. The settings to connect to the Cosmos DB are in Configuration menu item as shown in the Portal screen below - 
+![AppSetting][AppSettingImage]
+
 
 # Command Line Cognitive Translation Programs in python
 
@@ -63,3 +71,5 @@ Example:
 python TranslateText.py -f en -t de -q "My name is TR"
 ```
 [translationFunctionsFolder]: <https://github.com/tirtho/CognitiveDocumentTranslationApp/blob/main/translationFunctions>
+[funcAppImage]: <https://github.com/tirtho/CognitiveDocumentTranslationApp/blob/main/FuncApp.jpg>
+[AppSettingImage]: <https://github.com/tirtho/CognitiveDocumentTranslationApp/blob/main/AppSetting.jpg>
