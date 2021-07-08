@@ -12,6 +12,12 @@ You can translate documents from any language to any language (supported by Azur
 4. Create an Azure Spring Boot Web App in App Service
 5. Create an Azure Cognitive Document Translation API Service instance
 
+A few assumptions in the code are below - 
+
+The source files in the Blob Store are in a subfolder. For example, the files could be kept in <source container name>/english folder (for documents in English). This way you can keep different categories of files in different sub folders. But the assumption here is that all files for translation are kept in a sub folder in the container and NOT in the root.
+
+The translated files are placed in a subfolder <src language>-<target language> folder. For example if you are translating a file named MyDocs.pdf from English to Spanish, the translated file will be placed in <target container name>/en-es/MyDocs.pdf. The target subfolder en-es must exist beforehand.
+ 
 ### The Function App Setting
 The code for the two Azure Functions are in the [translationFunctions][translationFunctionsFolder] folder. If you want to run it locally (from say VSCode), you have to create your own local.settings.json file in the [translationFunctions][translationFunctionsFolder] folder so it can connect with the Blob Store, the Azure Cognitive Translation API Service and Cosmos DB. Below is a sample local.settings.json.
 ```
