@@ -37,7 +37,7 @@ public class TranslationJobController {
     public Map<String, Object> home() {
         logger.info("Request '/home' path.");
         final Map<String, Object> model = new HashMap<String, Object>();
-        model.put("jobId", UUID.randomUUID().toString());
+//        model.put("jobId", UUID.randomUUID().toString());
         model.put("content", "home");
         return model;
     }
@@ -53,7 +53,9 @@ public class TranslationJobController {
             Iterable<TranslationJob> iterable = translationJobRepository.findAll();
             if (iterable != null) {
                 iterable.forEach(translationJobs::add);
-            	logger.info("Found some jobs %s", translationJobs.toString());
+            	for (TranslationJob job : translationJobs) {
+            		logger.info("Found job %s", job.toString());
+            	}
             }
             return new ResponseEntity<>(translationJobs, HttpStatus.OK);
         } catch (Exception e) {
