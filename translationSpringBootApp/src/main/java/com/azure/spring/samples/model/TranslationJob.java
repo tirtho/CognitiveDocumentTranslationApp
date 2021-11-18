@@ -13,7 +13,8 @@ import com.azure.spring.data.cosmos.core.mapping.PartitionKey;
 @Container(containerName = "TranslationJob")
 public class TranslationJob {
     @Id
-    @PartitionKey   
+    @PartitionKey
+    private String serial;
     private String jobId;
     private Date createDate;
     private String requestId;
@@ -34,11 +35,12 @@ public class TranslationJob {
     public TranslationJob() {
     }
 
-	public TranslationJob(String jobId, Date createDate, String requestId, String jobStatus, String sourceFilePath,
+	public TranslationJob(String serial, String jobId, Date createDate, String requestId, String jobStatus, String sourceFilePath,
 			String targetFilePath, String sourceUrl, String targetUrl, String translatedFrom, String translatedTo,
 			String documentId, Date translationStartedAtUTC, Date translationLastActionDateUTC,
 			String translationStatus, Integer translationProgress, Integer characterCharged) {
 		super();
+		this.serial = serial;
 		this.jobId = jobId;
 		this.createDate = createDate;
 		this.requestId = requestId;
@@ -57,6 +59,14 @@ public class TranslationJob {
 		this.characterCharged = characterCharged;
 	}
 
+	public String getSerial() {
+		return serial;
+	}
+	
+	public void setSerial(String serial) {
+		this.serial = serial;
+	}
+	
 	public String getJobId() {
 		return jobId;
 	}
@@ -192,6 +202,7 @@ public class TranslationJob {
 		result = prime * result + ((characterCharged == null) ? 0 : characterCharged.hashCode());
 		result = prime * result + ((createDate == null) ? 0 : createDate.hashCode());
 		result = prime * result + ((documentId == null) ? 0 : documentId.hashCode());
+		result = prime * result + ((serial == null) ? 0 : serial.hashCode());	
 		result = prime * result + ((jobId == null) ? 0 : jobId.hashCode());
 		result = prime * result + ((jobStatus == null) ? 0 : jobStatus.hashCode());
 		result = prime * result + ((requestId == null) ? 0 : requestId.hashCode());
@@ -232,6 +243,11 @@ public class TranslationJob {
 			if (other.documentId != null)
 				return false;
 		} else if (!documentId.equals(other.documentId))
+			return false;
+		if (serial == null) {
+			if (other.serial != null)
+				return false;
+		} else if (!serial.equals(other.serial))
 			return false;
 		if (jobId == null) {
 			if (other.jobId != null)
@@ -303,7 +319,7 @@ public class TranslationJob {
 
 	@Override
 	public String toString() {
-		return "TranslationJob [jobId=" + jobId + ", createDate=" + createDate + ", requestId=" + requestId
+		return "TranslationJob [serial=\" + serial + \", jobId=" + jobId + ", createDate=" + createDate + ", requestId=" + requestId
 				+ ", jobStatus=" + jobStatus + ", sourceFilePath=" + sourceFilePath + ", targetFilePath="
 				+ targetFilePath + ", sourceUrl=" + sourceUrl + ", targetUrl=" + targetUrl + ", translatedFrom="
 				+ translatedFrom + ", translatedTo=" + translatedTo + ", documentId=" + documentId
