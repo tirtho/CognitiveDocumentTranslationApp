@@ -27,15 +27,20 @@ def main(myblob: func.InputStream, mydoc: func.Out[func.Document]):
     constructed_url = os.environ['TRANSLATOR_DOCS_ENDPOINT'] + '/batches'
     subscription_key = os.environ['TRANSLATOR_DOCS_SUBSCRIPTION_KEY']
 
-    toLanguage = os.environ['TRANSLATE_TO']
-    # TODO: Find out from language using a Congnitive Services call
-    fromLanguage = 'auto'
+    lang2Lang = str(inputFilename.split('/',2)[1])
+    fromLanguage = lang2Lang.split('-',2)[0]
+    toLanguage = lang2Lang.split('-',2)[1]
+    theFileToTranslate = str(inputFilename.split('/',2)[2])
 
+    logging.info(f"Translating from {fromLanguage} to {toLanguage} the file {theFileToTranslate}")
+
+    #toLanguage = os.environ['TRANSLATE_TO']
+    
     srcFile = str(blobStoreName) + str(inputFilename) + str(sourceKey)
 
     # Translate to Spanish
     targetFilePath = str(targetContainerName) + str('/') + str(fromLanguage) + \
-                    str('-') + str(toLanguage) + str('/') + str(inputFilename.split('/',2)[2])
+                    str('-') + str(toLanguage) + str('/') + theFileToTranslate
     targetFile = str(blobStoreName) + str(targetFilePath) + str(targetKey)
     targetGlossaryFile = targetGlossaryUri + str('/glossary-') + toLanguage + str('.tsv') + targetGlossaryKey
 
