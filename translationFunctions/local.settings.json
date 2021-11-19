@@ -1,0 +1,21 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "DefaultEndpointsProtocol=https;AccountName=trtransdemo;AccountKey=M5kWW+5afl7YJNXefoei8ZsJtdSbK3X6WYEVda2DDkMvf0GfTwLEKDERzA9EKU4hI588f6FeWrNU+nu8Esuvgw==;EndpointSuffix=core.windows.net",
+    "FUNCTIONS_WORKER_RUNTIME": "python",
+    "theTriggeringBlob_STORAGE": "DefaultEndpointsProtocol=https;AccountName=trtransdemo;AccountKey=M5kWW+5afl7YJNXefoei8ZsJtdSbK3X6WYEVda2DDkMvf0GfTwLEKDERzA9EKU4hI588f6FeWrNU+nu8Esuvgw==;EndpointSuffix=core.windows.net",
+    "DOCS_CONTAINER_HOST": "https://trtransdemo.blob.core.windows.net/",
+    "DOCS_CONTAINER_SOURCE_KEY": "?sp=racwdl&st=2021-06-13T03:05:57Z&se=2021-12-13T12:05:57Z&spr=https&sv=2020-02-10&sr=c&sig=8G%2BXlefPSIp5A5Sd01BDL3Rsp5fj1zsMr804wNHJDLA%3D",
+    "DOCS_TARGET_CONTAINER_NAME": "translation-target",
+    "TRANSLATE_TO": "es",
+    "DOCS_CONTAINER_TARGET_KEY": "?sp=racwdl&st=2021-06-13T03:12:50Z&se=2021-12-13T12:12:50Z&spr=https&sv=2020-02-10&sr=c&sig=YlrES%2FPB%2Fv2VaY21DoVq7ItkdOe1GTORE3zSLk1ExUw%3D",
+    "TRANSLATOR_DOCS_ENDPOINT": "https://trtranslator.cognitiveservices.azure.com/translator/text/batch/v1.0",
+    "TRANSLATOR_DOCS_SUBSCRIPTION_KEY": "566485b699384cf58e66e3e81245aa86",
+    "GLOSSARY_CONTAINER_KEY": "?sp=racwdl&st=2021-06-13T03:16:44Z&se=2021-12-13T12:16:44Z&spr=https&sv=2020-02-10&sr=c&sig=3RWI2z0B7c3nCPkFg2WWKLlXXaPzfDfRvJczMUky9UI%3D",
+    "GLOSSARY_URI": "https://trtransdemo.blob.core.windows.net/translation-glossary",
+    "theCosmosDB_DOCUMENTDB": "AccountEndpoint=https://trtransdemo.documents.azure.com:443/;AccountKey=LbNTgD7KBJ6CemcWVtHOX7bAmz4AzuoDl3eOSlj9XRpsVksnU9YFXy0Tztazx5i5PiMbmhLnpXODpQyzPyQdfw==;",
+    "cosmosDatabaseName": "DocumentTranslationDB",
+    "cosmosCollectionName": "TranslationJob"
+
+  }
+}
