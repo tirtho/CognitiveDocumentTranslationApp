@@ -33,8 +33,6 @@ def main(myblob: func.InputStream, mydoc: func.Out[func.Document]):
     theFileToTranslate = str(inputFilename.split('/',2)[2])
 
     logging.info(f"Translating from {fromLanguage} to {toLanguage} the file {theFileToTranslate}")
-
-    #toLanguage = os.environ['TRANSLATE_TO']
     
     srcFile = str(blobStoreName) + str(inputFilename) + str(sourceKey)
 
@@ -44,12 +42,6 @@ def main(myblob: func.InputStream, mydoc: func.Out[func.Document]):
     targetFile = str(blobStoreName) + str(targetFilePath) + str(targetKey)
     targetGlossaryFile = targetGlossaryUri + str('/glossary-') + toLanguage + str('.tsv') + targetGlossaryKey
 
-    # Translate to German
-#    targetFilePathGerman = str(targetContainerName) + str('/') + str(inputFilename.split('/',2)[1]) + \
-#                    str('-german') + str('/') + str(inputFilename.split('/',2)[2])
-#    targetFileGerman = str(blobStoreName) + targetFilePathGerman + str(targetKey)
-#    targetGlossaryFileGerman = targetGlossaryUri + str('/glossary-') + toGermanLanguage + str('.tsv') + targetGlossaryKey
-
     # Using auto detect for source document language
     payloadWithPrefixAndSuffix = {
         "inputs": [
@@ -57,7 +49,8 @@ def main(myblob: func.InputStream, mydoc: func.Out[func.Document]):
                 "storageType": "File",
                 "source": {
                     "sourceUrl": srcFile,
-                    "storageSource": "AzureBlob"
+                    "storageSource": "AzureBlob",
+                        "language": fromLanguage
                 },
                 "targets": [
                     {
@@ -109,4 +102,3 @@ def main(myblob: func.InputStream, mydoc: func.Out[func.Document]):
         }
         #print("Writing to CsomosDB ==> %s" %(json.dumps(cosmosDBTranslationJob)) )
         mydoc.set(func.Document.from_json(json.dumps(cosmosDBTranslationJob)))
-        #return 'OK'
