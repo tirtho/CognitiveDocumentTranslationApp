@@ -1,7 +1,7 @@
 # The Architecture
 The architecture below shows what you can execute with the code here. Upon setup, you can load your files to translate into the Input container of the Blob Storage, which will automatically trigger an Azure Function, fDocTranslate, to call the Azure Cognitive Document Translation APIs to translate the new document(s) and create an item entry for this job in the Azure Cosmos DB instance. The Cognitive Document Translation API will store the translated document(s) in the Output container. And storing this new translated document in Output container will trigger the other Azure Function, fDocTranslateStatus, which will then update the item in Cosmos DB with translation completion and other status information. The Azure Web App (written using Spring Boot) gets the list of items from the Cosmos DB instance and displays in the UI.
 
-You can translate documents from any language to any language (supported by Azure Cognitive Document Translation API Service - [see list][SupportedLanguages]). Documents should in [a supported format][SupportedFormat]. The translation from and to languages are setup as parameters in the Function App (shown below). Also, you can add dictionary items in a dictionary container you create in your Blob Storage. Sample dictionary files are in the [sample-glossaries][GlossaryFolder] folder.
+You can translate documents from any language to any language (supported by Azure Cognitive Document Translation API Service - [see list][SupportedLanguages]). Documents should be in [a supported format][SupportedFormat]. The translation from and to languages are derived by the code based on the assumption on the format of the source folder in the Blob Storage as <source container name>/<2 char code for the from language>-<2 char code for the to language>. For example, in <source container name>/en-es/ the code will translate all files in this folder from English to Spanish. Also, you can add dictionary items in a dictionary container you create in your Blob Storage. Sample dictionary files are in the [sample-glossaries][GlossaryFolder] folder.
 
 ![Architecture URL](/images/architecture.jpg)
 
@@ -14,11 +14,11 @@ You can translate documents from any language to any language (supported by Azur
 
 A few assumptions in the code are below - 
 
-The source files in the Blob Store are in a subfolder. For example, the files could be kept in <source container name>/english folder (for documents in English). This way you can keep different categories of files in different sub folders. But the assumption here is that all files for translation are kept in a sub folder in the container and NOT in the root.
+The source files in the Blob Store are in a subfolder. For example, the files could be kept in <source container name>/en-es (for documents to be translated from English to Spanish). This way you can keep different categories of files in different sub folders. The code will log errors if files are added to the source container in root or any folder that does not follow the above pattern like /en-es/.
 
 The translated files are placed in a subfolder <src language>-<target language> folder. For example if you are translating a file named MyDocs.pdf from English to Spanish, the translated file will be placed in <target container name>/en-es/MyDocs.pdf. The target subfolder en-es must exist beforehand.
- 
-The code uses the auto language detect feature of Azure Cognitive Document Translation APIs to automatically detect the language of the source document. In this case, for the above example, the source language will be 'auto'.
+
+For each target language in the source folder, there must be a glossary-<target language>.tsv file in the glossary container in the Blob Storage.
  
 ### The Function App Setting
 The code for the two Azure Functions are in the [translationFunctions][translationFunctionsFolder] folder. If you want to run it locally (from say VSCode), you have to create your own local.settings.json file in the [translationFunctions][translationFunctionsFolder] folder so it can connect with the Blob Store, the Azure Cognitive Translation API Service and Cosmos DB. Below is a sample local.settings.json.
@@ -32,7 +32,6 @@ The code for the two Azure Functions are in the [translationFunctions][translati
     "DOCS_CONTAINER_HOST": "https://trtransdemo.blob.core.windows.net/",
     "DOCS_CONTAINER_SOURCE_KEY": "?sp=racwdl&st=2021-06-13T03:05:57Z&se=2021-12-13T12:05:57Z&spr=https&sv=2020-02-10&sr=c&sig=xxxxxxxx",
     "DOCS_TARGET_CONTAINER_NAME": "translation-target",
-    "TRANSLATE_TO": "es",
     "DOCS_CONTAINER_TARGET_KEY": "?sp=racwdl&st=2021-06-13T03:12:50Z&se=2021-12-13T12:12:50Z&spr=https&sv=2020-02-10&sr=c&sig=xxxxxxx",
     "TRANSLATOR_DOCS_ENDPOINT": "https://trtranslator.cognitiveservices.azure.com/translator/text/batch/v1.0",
     "TRANSLATOR_DOCS_SUBSCRIPTION_KEY": "00000000000000",
