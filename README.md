@@ -16,7 +16,7 @@ A few assumptions in the code are below -
 
 The source files in the Blob Store are in a subfolder. For example, the files could be kept in <source container name>/en-es (for documents to be translated from English to Spanish). This way you can keep different categories of files in different sub folders. The code will log errors if files are added to the source container in root or any folder that does not follow the above pattern like /en-es/.
 
-The translated files are placed in a subfolder <src language>-<target language> folder. For example if you are translating a file named MyDocs.pdf from English to Spanish, the translated file will be placed in <target container name>/en-es/MyDocs.pdf. The target subfolder en-es must exist beforehand.
+The translated files are placed in a subfolder \<src language\>-\<target language\> folder. For example if you are translating a file named MyDocs.pdf from English to Spanish, the translated file will be placed in <target container name>/en-es/MyDocs.pdf. The target subfolder en-es must exist beforehand.
 
 For each target language in the source folder, there must be a glossary-<target language>.tsv file in the glossary container in the Blob Storage.
  
