@@ -13,3 +13,6 @@ target/
 
 # Local scripts
 .scripts/
+
+# vscode
+.vscode
